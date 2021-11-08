@@ -1,73 +1,25 @@
-version: 2.1
-
+version: '2.1'
 orbs:
   android: circleci/android@1.0
 jobs:
+  test:
+    executor:
+      name: android/android-machine
+      resource-class: large
     steps:
       - checkout
-      - run: java --version
-      - run: echo $JAVA_HOME
-      - run:
-                name: Install Node
-                command: |
-                    cd
-                    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-                    sudo apt-get install -y nodejs
-                    
-                    
-      
-      - run: |
-          sudo apt update && sudo apt install android-sdk
-          
-          
-      - run:
-                name: Setup Emulator
-                command: sdkmanager --install "system-images;android-30;google_apis;arm64-v8a" && echo
-                    "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;arm64-v8a" --force
-      - run:
-                name: Launch Emulator
-                command: |
-                    cd ${ANDROID_HOME}/emulator;ls
-                    export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
-                    emulator -avd test -skin 1080x2220 -no-window -noaudio -no-boot-anim -no-window -accel on
-                background: true
-      - run: |
-          
-          adb devices
-          echo "Emulator started"
-      - run: |
-          rm -rf node_modules
-          npm cache clean --force
-          rm -rf package-lock.json
-      - run: npm install --save-dev
-      - run: npm audit fix
-      - run: npm install --save-dev chai
-      - run:
-          name: Starting metro in background
-          command: npm start --reset-cache &> metro-android.log
-          background: true
-      - run: |
-          react-native run-android &> build-android.log
-          sleep 30
-      - run:
-          name: Run E2E Tests - Android
-          command: npm run e2e-test:android -- Sanity &> test-execution-console-android.log
-          no_output_timeout: 30m
-      - store_artifacts:
-          path: metro-android.log
-          destination: metro-android.log
-      - store_artifacts:
-          path: build-android.log
-          destination: build-android.log
-      - store_artifacts:
-          path: test-execution-console-android.log
-          destination: test-execution-console-android.log
-      - store_artifacts:
-          path: __tests__/e2e/test-results
-          destination: test-results-android
-
-# Orchestrate our job run sequence
+      - android/create-avd:
+          avd-name: myavd
+          install: true
+          system-image: system-images;android-29;default;x86
+      - android/start-emulator:
+          avd-name: myavd
+          no-window: true
+          restore-gradle-cache-prefix: v1a
+      - android/run-tests
+      - android/save-gradle-cache:
+          cache-prefix: v1a
 workflows:
-  build_and_test:
+  test:
     jobs:
-      - android
+      - test
