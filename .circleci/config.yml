@@ -27,7 +27,6 @@ jobs:
           
           
       - run: |
-          export PATH=$JAVA_HOME/bin:$PATH
           echo "y" | sdkmanager --install 'system-images;android-30;default;arm64-v8a'
           "no" | avdmanager create avd -n test -k "system-images;android-30;default;arm64-v8a" --force
           emulator -list-avd
