@@ -20,11 +20,10 @@ jobs:
                     
       
       - run: |
-          brew install --cask homebrew/cask-versions/adoptopenjdk8
-          brew install gradle
-          brew install android-sdk
-          brew install android-platform-tools
-          brew install --cask intel-haxm
+          sudo apt update && sudo apt install android-sdk
+          sudo apt update && sudo apt install android-platform-tools
+          sudo apt update && sudo apt install openjdk-8-jdk
+          
       - run: |
           export PATH=$JAVA_HOME/bin:$PATH
           echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86_64'
