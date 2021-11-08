@@ -5,11 +5,14 @@ jobs:
   android:
     docker:
             - image: circleci/android:api-28
+            - image: circleci/openjdk:8-jdk
     environment:
       JAVA_HOME: /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
       ANDROID_SDK_ROOT: /usr/local/Caskroom/android-sdk/4333796
     steps:
       - checkout
+      - run: java --version
+      - run: java -version
       - run:
                 name: Install Node
                 command: |
