@@ -21,7 +21,7 @@ jobs:
       
       - run: |
           sudo apt update && sudo apt install android-sdk
-          sudo apt update && sudo apt install openjdk-8-jdk
+          
           
       - run: |
           export PATH=$JAVA_HOME/bin:$PATH
