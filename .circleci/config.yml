@@ -18,7 +18,7 @@ jobs:
                     sudo apt-get install -y nodejs
                     
                     
-      - run: npm install -g react-native-cli
+      
       - run: |
           brew install --cask homebrew/cask-versions/adoptopenjdk8
           brew install gradle
