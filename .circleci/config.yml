@@ -5,9 +5,9 @@ jobs:
   android:
     docker:
             - image: circleci/android:api-28
-            - image: circleci/openjdk:8-jdk
+            
     environment:
-      JAVA_HOME: /Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/jdk11.0.12.jdk/Contents/Home
       ANDROID_SDK_ROOT: /usr/local/Caskroom/android-sdk/4333796
     steps:
       - checkout
