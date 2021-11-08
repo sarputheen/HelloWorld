@@ -16,7 +16,7 @@ jobs:
                     cd
                     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
                     sudo apt-get install -y nodejs
-                    sudo chown -R $USER:$USER /usr/local/lib/node_modules/
+                    
                     
       - run: npm install -g react-native-cli
       - run: |
