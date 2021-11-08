@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   android:
     docker:
-            - image: circleci/android:api-30
+            - image: circleci/android:api-31
             
     environment:
       
