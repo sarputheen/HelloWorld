@@ -30,8 +30,7 @@ jobs:
           export PATH=$JAVA_HOME/bin:$PATH
           echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86_64'
           echo "no" | avdmanager create avd -n test_device -k 'system-images;android-28;google_apis;x86_64' --force
-          emulator -list-avds
-          ls -la /Users/$USER/.android/avd
+          emulator -list-avd
           sdkmanager "platform-tools" "platforms;android-28"
       - run:
           name: Starting emulator in background
