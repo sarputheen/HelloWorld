@@ -11,6 +11,13 @@ jobs:
       ANDROID_SDK_ROOT: /usr/local/Caskroom/android-sdk/4333796
     steps:
       - checkout
+      - run:
+                name: Install Node
+                command: |
+                    cd
+                    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+                    sudo apt update
+                    sudo apt install nodejs npm
       - run: npm install -g react-native-cli
       - run: |
           brew install --cask homebrew/cask-versions/adoptopenjdk8
