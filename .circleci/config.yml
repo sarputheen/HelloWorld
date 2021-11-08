@@ -26,18 +26,17 @@ jobs:
           sudo apt update && sudo apt install android-sdk
           
           
-      - run: |
-          echo "y" | sdkmanager --install 'system-images;android-30;default;arm64-v8a'
-          "no" | avdmanager create avd -n test -k "system-images;android-30;default;arm64-v8a" --force
-          emulator -list-avd
-          sdkmanager "platform-tools" "platforms;android-30"
       - run:
-          name: Starting emulator in background
-          command: |
+                name: Setup Emulator
+                command: sdkmanager --install "system-images;android-30;google_apis;arm64-v8a" && echo
+                    "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;arm64-v8a" --force
+      - run:
+                name: Launch Emulator
+                command: |
                     cd ${ANDROID_HOME}/emulator;ls
                     export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
-                    emulator -avd test_device -skin 1080x1920 -memory 1024 -engine qemu2 -netfast -no-audio -no-snapshot -accel on
-          background: true
+                    emulator -avd test -skin 1080x2220 -no-window -noaudio -no-boot-anim -no-window -accel on
+                background: true
       - run: |
           
           adb devices
