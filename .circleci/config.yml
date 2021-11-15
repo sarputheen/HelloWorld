@@ -2,7 +2,7 @@ version: '2.1'
 orbs:
   android: circleci/android@1.0.3
 jobs:
-  test:
+  tests:
     executor:
       name: android/android-machine
       resource-class: large
@@ -22,4 +22,4 @@ jobs:
 workflows:
   test:
     jobs:
-      - test
+      - tests
